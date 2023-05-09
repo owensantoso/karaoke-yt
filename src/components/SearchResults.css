@@ -4,10 +4,19 @@
   }
   
   .search-result {
+    background-color: #2c2c2c;
+    color: #fff;
     display: flex;
     align-items: center;
     cursor: pointer;
     padding: 5px 0;
+  }
+  .search-results {
+    background-color: #2c2c2c;
+    padding: 20px;
+    color: #fff;
+    overflow-y: auto;
+    height: calc(100% - 70px);
   }
   
   .thumbnail {

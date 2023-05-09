@@ -1,0 +1,22 @@
+.search-bar {
+    background-color: #2c2c2c;
+    padding: 20px;
+    color: #fff;
+  }
+  
+  .search-bar input {
+    background-color: #444;
+    border: none;
+    padding: 10px;
+    color: #fff;
+    width: calc(100% - 40px);
+    margin-right: 10px;
+  }
+  
+  .search-bar button {
+    background-color: #444;
+    border: none;
+    padding: 10px;
+    color: #fff;
+  }
+  
