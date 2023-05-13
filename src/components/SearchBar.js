@@ -11,7 +11,7 @@ const SearchBar = ({ handleSearchResults }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const API_KEY = 'AIzaSyDUUZPrvUOaltkN4HaNBwzl9Redk3S1b9o';
+    const API_KEY = 'API_KEY';
     const searchQuery = `${searchTerm} karaoke カラオケ歌っちゃ王`;
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchQuery} karaoke&type=video&key=${API_KEY}`;
 
