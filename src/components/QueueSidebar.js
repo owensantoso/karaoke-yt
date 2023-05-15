@@ -27,22 +27,29 @@ function QueueSidebar({
   
 
 
-  const renderQueueItem = (item, index) => (
-    <div key={index} className="queue-item">
-      <span>{item.snippet.title}</span>
-      <div className="queue-item-actions">
-        <FontAwesomeIcon icon={faPlay} onClick={() => playNextVideo(index)} />
-        <FontAwesomeIcon icon={faTimes} onClick={() => removeFromQueue(index)} />
-      </div>
-    </div>
-  );
+  const renderQueueItem = (item, index) => {
+    if (index !== currentVideoIndex) {
+      return (
+        <div key={index} className="queue-item">
+          <span>{item.snippet.title}</span>
+          <div className="queue-item-actions">
+            <FontAwesomeIcon icon={faTimes} onClick={() => removeFromQueue(index)} />
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
+  
 
   return (
     <div className="queue-sidebar">
       <div className="now-playing">
         <h4>Now Playing</h4>
         <div className="song-title">{nowPlaying?.snippet.title}</div>
-        <div className="player-controls">
+      </div>
+      <div className="player-controls">
           <FontAwesomeIcon icon={faBackward} onClick={playPreviousVideo} />
           {isPlaying ? (
             <FontAwesomeIcon icon={faPauseCircle} onClick={togglePlayPause} />
@@ -51,7 +58,6 @@ function QueueSidebar({
           )}
           <FontAwesomeIcon icon={faForward} onClick={playNextVideo} />
         </div>
-      </div>
       <div className="queue">
         <h4>Queue</h4>
         {queue.map(renderQueueItem)}

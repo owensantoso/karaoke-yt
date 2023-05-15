@@ -1,7 +1,7 @@
 import './YouTubePlayer.css';
 import React, { useEffect, useRef } from 'react';
 
-function YouTubePlayer({ videoId, isPlaying, playerState, onStateChange, onVideoEnd }) {
+function YouTubePlayer({ videoId, isPlaying, setIsPlaying, playerState, onStateChange, onVideoEnd }) {
   const playerRef = useRef(null);
 
   useEffect(() => {
@@ -33,6 +33,13 @@ function YouTubePlayer({ videoId, isPlaying, playerState, onStateChange, onVideo
   }, [videoId]);
 
   const handleStateChange = (event) => {
+    // Update `isPlaying` when video starts or pauses
+    if (event.data === window.YT.PlayerState.PLAYING) {
+      setIsPlaying(true);
+    } else if (event.data === window.YT.PlayerState.PAUSED) {
+      setIsPlaying(false);
+    }
+
     if (onStateChange) {
       onStateChange(event.data);
     }
@@ -41,6 +48,17 @@ function YouTubePlayer({ videoId, isPlaying, playerState, onStateChange, onVideo
     }
   };
 
+
+  /*
+  const handleStateChange = (event) => {
+    if (onStateChange) {
+      onStateChange(event.data);
+    }
+    if (event.data === window.YT.PlayerState.ENDED && onVideoEnd) {
+      onVideoEnd();
+    }
+  };
+*/
   useEffect(() => {
     if (playerRef.current) {
       if (isPlaying && playerState !== window.YT.PlayerState.PLAYING) {

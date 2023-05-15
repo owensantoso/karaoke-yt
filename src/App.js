@@ -17,14 +17,21 @@ function App() {
     setQueue([...queue, video]);
   };
 
-  const playNextVideo = () => {
-    if (currentVideoIndex + 1 < queue.length) {
-      setHistory([...history, queue[currentVideoIndex]]);
-      setCurrentVideoIndex(currentVideoIndex + 1);
-      setQueue(queue.filter((_, i) => i !== currentVideoIndex));
+// App.js
+
+const playNextVideo = () => {
+  if (currentVideoIndex + 1 < queue.length) {
+    const nextVideoIndex = currentVideoIndex + 1;
+    setHistory([...history, queue[currentVideoIndex]]);
+    setQueue(queue.filter((_, i) => i !== currentVideoIndex));
+    setCurrentVideoIndex(nextVideoIndex - 1); // Subtract 1 because the queue has shifted
+    setIsPlaying(false);
+    setTimeout(() => {
       setIsPlaying(true);
-    }
-  };
+    }, 1000);
+  }
+};
+
   
   /* this version of playNextVideo works but without removal in the queue.
   const playNextVideo = () => {
@@ -37,6 +44,21 @@ function App() {
 
   */
   
+
+  /* this version works with removal
+    const playNextVideo = () => {
+    if (currentVideoIndex + 1 < queue.length) {
+      const nextVideoIndex = currentVideoIndex + 1;
+      setHistory([...history, queue[currentVideoIndex]]);
+      setQueue(queue.filter((_, i) => i !== currentVideoIndex));
+      setCurrentVideoIndex(nextVideoIndex - 1); // Subtract 1 because the queue has shifted
+      setIsPlaying(false);
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 1000);
+    }
+  };
+  */
   
   const playPreviousVideo = () => {
     if (currentVideoIndex > 0) {
@@ -46,15 +68,14 @@ function App() {
   };
 
   const togglePlayPause = () => {
+    console.log("togglePlayPause called");
     setIsPlaying(!isPlaying);
+    console.log("isPlaying state after toggle: ", !isPlaying);
   };
 
   const handleVideoEnd = () => {
     playNextVideo();
-    setIsPlaying(false);
-    setTimeout(() => {
-      setIsPlaying(true);
-    }, 1000);
+
   };
 
   return (
@@ -76,6 +97,7 @@ function App() {
         <YouTubePlayer
           videoId={queue[currentVideoIndex]?.id.videoId}
           isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
           onStateChange={setPlayerState}
           onVideoEnd={handleVideoEnd}
         />

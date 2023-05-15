@@ -39,3 +39,25 @@ code {
   overflow-y: auto;
   border-left: 1px solid #ccc;
 }
+
+
+/* This will affect the scrollbar globally */
+* {
+  scrollbar-width: thin; /* "auto" or "thin"  */
+  scrollbar-color: lightgrey #444; /* scrollbar color and track color */
+}
+
+/* This is for Webkit browsers like Chrome, Safari */
+*::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: #444; /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: lightgrey; /* color of the scroll thumb */
+  border-radius: 20px; /* radius of the scroll thumb */
+  border: 3px solid #444; /* creates padding around scroll thumb */
+}
