@@ -12,6 +12,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [history, setHistory] = useState([]);
   const [playerState, setPlayerState] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const addToQueue = (video) => {
     setQueue([...queue, video]);
@@ -21,6 +22,7 @@ function App() {
 
 const playNextVideo = () => {
   if (currentVideoIndex + 1 < queue.length) {
+    setLoading(true); // Set loading to true when next video starts loading
     const nextVideoIndex = currentVideoIndex + 1;
     setHistory([...history, queue[currentVideoIndex]]);
     setQueue(queue.filter((_, i) => i !== currentVideoIndex));
@@ -28,6 +30,7 @@ const playNextVideo = () => {
     setIsPlaying(false);
     setTimeout(() => {
       setIsPlaying(true);
+      setLoading(false); // Set loading back to false when video starts playing
     }, 1000);
   }
 };
@@ -61,11 +64,20 @@ const playNextVideo = () => {
   */
   
   const playPreviousVideo = () => {
-    if (currentVideoIndex > 0) {
-      setCurrentVideoIndex(currentVideoIndex - 1);
-      setIsPlaying(true);
+    if (history.length > 0) {
+      setLoading(true); // Set loading to true when next video starts loading
+      const previousVideo = history[history.length - 1]; // Get the last video from history
+      setHistory(history.slice(0, -1)); // Remove the last video from history
+      setQueue([previousVideo, ...queue]); // Add the video back to the top of the queue
+      setCurrentVideoIndex(0); // Set the current video index to 0
+      setIsPlaying(false);
+      setTimeout(() => {
+        setIsPlaying(true);
+        setLoading(false); // Set loading back to false when video starts playing
+      }, 1000);
     }
   };
+  
 
   const togglePlayPause = () => {
     console.log("togglePlayPause called");
@@ -84,8 +96,8 @@ const playNextVideo = () => {
         <QueueSidebar
           queue={queue}
           setQueue={setQueue}
-          playNextVideo={playNextVideo}
-          playPreviousVideo={playPreviousVideo}
+          playNextVideo={loading ? null : playNextVideo}
+          playPreviousVideo={loading ? null : playPreviousVideo}
           currentVideoIndex={currentVideoIndex}
           isPlaying={isPlaying}
           togglePlayPause={togglePlayPause}

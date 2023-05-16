@@ -27,17 +27,17 @@ code {
 .sidebar {
   width: 25%;
   height: 100%;
-  padding: 20px;
+  padding: 0px;
   overflow-y: auto;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid rgb(120, 120, 120);
 }
 
 .search-sidebar {
   width: 25%;
   height: 100%;
-  padding: 20px;
+  padding: 0px;
   overflow-y: auto;
-  border-left: 1px solid #ccc;
+  border-left: 1px solid rgb(120, 120, 120);
 }
 
 

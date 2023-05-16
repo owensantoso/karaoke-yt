@@ -7,6 +7,7 @@
 }
 
 .search-input {
+  cursor: text;
   background-color: #444;
   border: none;
   padding: 10px;
@@ -16,8 +17,17 @@
 }
 
 .search-button {
+  cursor: pointer;
   background-color: #444;
   border: none;
   padding: 10px;
   color: #fff;
+}
+
+.search-result {
+  padding: 10px;
+}
+
+.search-result:hover {
+  background-color: #414141; /* Adjust this color to the shade of grey you want */
 }

@@ -33,7 +33,7 @@ function QueueSidebar({
         <div key={index} className="queue-item">
           <span>{item.snippet.title}</span>
           <div className="queue-item-actions">
-            <FontAwesomeIcon icon={faTimes} onClick={() => removeFromQueue(index)} />
+            <FontAwesomeIcon className="delete-icon" icon={faTimes} onClick={() => removeFromQueue(index)} />
           </div>
         </div>
       );
@@ -56,7 +56,8 @@ function QueueSidebar({
           ) : (
             <FontAwesomeIcon icon={faPlayCircle} onClick={togglePlayPause} />
           )}
-          <FontAwesomeIcon icon={faForward} onClick={playNextVideo} />
+          <FontAwesomeIcon icon={faForward} onClick={playNextVideo} disabled={!playNextVideo} />
+
         </div>
       <div className="queue">
         <h4>Queue</h4>
